@@ -9,16 +9,17 @@ tmp
 node_modules
 
 # IDEs and editors
-/.idea
+*.idea
 .project
 .classpath
 .c9/
 *.launch
 .settings/
 *.sublime-workspace
+.editorconfig
 
 # IDE - VSCode
-.vscode/*
+*.vscode*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -38,7 +39,40 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.nx/cache
+/frontend/.nx/cache
 
 # Next.js
 .next
+
+application.properties
+
+
+*.class
+
+# Log files
+*.log
+
+# IntelliJ IDEA files
+.idea/
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# Maven files
+target/
+mvnw
+mvnw.cmd
+
+# Gradle files
+.gradle/
+build/
+
+# Spring Boot generated files
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# OS-specific files
+.DS_Store
+Thumbs.dbGetMapping("/hello")
