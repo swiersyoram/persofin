@@ -76,3 +76,5 @@ build/
 # OS-specific files
 .DS_Store
 Thumbs.dbGetMapping("/hello")
+
+application.yml
