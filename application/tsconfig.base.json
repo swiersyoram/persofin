@@ -15,9 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@persofin/api": ["libs/api/src/index.ts"],
+      "@persofin/dashboard": ["libs/web/components/dashboard/src/index.ts"],
+      "@persofin/icons": ["libs/assets/icons/src/index.ts"],
       "@persofin/shadcn": ["libs/web/components/shadcn/src/index.ts"],
       "@persofin/utils": ["libs/utils/src/index.ts"]
-    }
+    },
+    "jsx": "react-jsx"
   },
   "exclude": ["node_modules", "tmp"]
 }
