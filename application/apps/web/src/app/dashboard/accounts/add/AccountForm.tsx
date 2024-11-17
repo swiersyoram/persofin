@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent, PropsWithChildren } from 'react';
+import React from 'react';
 import { DashboardTitle } from '@persofin/dashboard';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addAccountMutation, QueryKeys } from '@persofin/api';
@@ -14,20 +14,9 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  Label,
 } from '@persofin/shadcn';
-import { FormData } from 'next/dist/compiled/@edge-runtime/primitives';
 import { useForm } from 'react-hook-form';
 import { Account } from '@persofin/types';
-
-const Spacer = ({ children }: PropsWithChildren) => (
-  <span className={'gap-y-2 flex flex-col mb-5'}>{children}</span>
-);
-
-interface IFormInput {
-  name: string;
-  description: string;
-}
 
 export const AccountForm = () => {
   const router = useRouter();
