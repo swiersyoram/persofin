@@ -1,6 +1,7 @@
 export enum ApplicationRoutes {
   dashboard = '/dashboard',
   accounts = '/dashboard/accounts',
+  addAccount = '/dashboard/accounts/add',
 }
 
 export enum ApiRoutes {
