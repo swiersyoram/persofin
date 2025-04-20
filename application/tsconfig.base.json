@@ -16,7 +16,12 @@
     "baseUrl": ".",
     "paths": {
       "@persofin/api": ["libs/api/src/index.ts"],
+      "@persofin/component-utils": ["libs/web/components/utils/src/index.ts"],
+      "@persofin/component-utils/server": [
+        "libs/web/components/utils/src/server.ts"
+      ],
       "@persofin/dashboard": ["libs/web/components/dashboard/src/index.ts"],
+      "@persofin/hooks": ["libs/hooks/src/index.ts"],
       "@persofin/icons": ["libs/assets/icons/src/index.ts"],
       "@persofin/shadcn": ["libs/web/components/shadcn/src/index.ts"],
       "@persofin/types": ["libs/types/src/index.ts"],

@@ -1,7 +1,11 @@
 'use client';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addAccountMutation, QueryKeys } from '@persofin/api';
+import {
+  addAccountMutation,
+  QueryKeys,
+  updateAccountMutation,
+} from '@persofin/api';
 import { cleanIBANString, validateIBAN } from '@persofin/utils';
 import {
   Button,
@@ -18,17 +22,38 @@ import { Account } from '@persofin/types';
 
 interface AccountFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  initialData?: Account;
+  isUpdate?: boolean;
 }
 
-export const AccountForm = ({ setIsOpen }: AccountFormProps) => {
+export const AccountForm = ({
+  setIsOpen,
+  initialData,
+  isUpdate = false,
+}: AccountFormProps) => {
   const queryClient = useQueryClient();
-  const form = useForm<Account>();
+  const form = useForm<Account>({
+    defaultValues: initialData,
+  });
+
+  useEffect(() => {
+    if (initialData) {
+      form.reset(initialData);
+    }
+  }, [initialData, form]);
+
   const mutation = useMutation({
-    mutationFn: addAccountMutation,
-    onSuccess: () => {
+    mutationFn: isUpdate ? updateAccountMutation : addAccountMutation,
+    onSuccess: async () => {
       queryClient
-        .invalidateQueries({ queryKey: [QueryKeys.ACCOUNTS] })
+        .invalidateQueries({
+          queryKey: [QueryKeys.ACCOUNTS],
+        })
         .then(() => {
+          if (isUpdate)
+            queryClient.invalidateQueries({
+              queryKey: [QueryKeys.ACCOUNTS_DETAIL, initialData?.id],
+            });
           setIsOpen(false);
         });
     },
@@ -85,6 +110,7 @@ export const AccountForm = ({ setIsOpen }: AccountFormProps) => {
           />
 
           <FormField
+            disabled={isUpdate}
             control={form.control}
             name="iban"
             rules={{
@@ -102,16 +128,21 @@ export const AccountForm = ({ setIsOpen }: AccountFormProps) => {
                     onChange={(e) => handleIBANChange(e, onChange)}
                   />
                 </FormControl>
-                <FormMessage />
-                <p className="text-xs text-gray-500 mt-1">
-                  International Bank Account Number (e.g., BE68 5390 0754 7034)
-                </p>
+                {!isUpdate && (
+                  <>
+                    <FormMessage />
+                    <p className="text-xs text-gray-500 mt-1">
+                      International Bank Account Number (e.g., BE68 5390 0754
+                      7034)
+                    </p>
+                  </>
+                )}
               </FormItem>
             )}
           />
 
           <Button type="submit" disabled={mutation.isPending}>
-            Create account
+            {isUpdate ? 'Update account' : 'Create account'}
           </Button>
         </form>
       </Form>

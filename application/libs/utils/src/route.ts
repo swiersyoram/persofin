@@ -6,5 +6,6 @@ export enum ApplicationRoutes {
 
 export enum ApiRoutes {
   accounts = '/api/accounts',
+  permissions = '/api/permissions',
   logout = '/api/auth/logout',
 }

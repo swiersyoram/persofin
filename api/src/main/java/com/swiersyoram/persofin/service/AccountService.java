@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +26,6 @@ public class AccountService {
         Account existingAccount = getAccountById(id);
         existingAccount.setName(updatedAccount.getName());
         existingAccount.setDescription(updatedAccount.getDescription());
-        existingAccount.setIban(updatedAccount.getIban());
 
         return accountRepository.save(existingAccount);
     }
@@ -36,7 +36,7 @@ public class AccountService {
     }
 
     public List<Account> getAccountsByOwnerId(String ownerId) {
-        return accountRepository.findByOwnerId(ownerId);
+        return accountRepository.findByOwnerId(ownerId).stream().sorted(Comparator.comparing(Account::getCreatedDate)).toList();
     }
 
     public void deleteAccount(UUID id) {
