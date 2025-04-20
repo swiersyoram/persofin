@@ -18,7 +18,7 @@ export const AccountCard = ({
   account: { name, description, id, iban },
 }: Props) => {
   return (
-    <Link href={`/dashboard/accounts/${id}/detail`}>
+    <Link href={`/dashboard/accounts/${id}`}>
       <Card
         className={
           'w-80 h-40 flex flex-col border-0 hover:cursor-pointer hover:shadow-lg duration-300'
