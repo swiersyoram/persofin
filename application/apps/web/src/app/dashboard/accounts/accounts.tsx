@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { ApplicationRoutes } from '@persofin/utils';
 
 const Accounts = () => {
-  const { data: accounts, ...props } = useQuery({
+  const { data: accounts } = useQuery({
     queryKey: [QueryKeys.Accounts],
     queryFn: accountsQuery,
   });

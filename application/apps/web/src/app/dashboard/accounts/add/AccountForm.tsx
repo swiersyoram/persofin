@@ -4,7 +4,7 @@ import { DashboardTitle } from '@persofin/dashboard';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addAccountMutation, QueryKeys } from '@persofin/api';
 import { useRouter } from 'next/navigation';
-import { ApplicationRoutes } from '@persofin/utils';
+import { ApplicationRoutes, formatIBAN, validateIBAN } from '@persofin/utils';
 import {
   Button,
   Form,
@@ -29,6 +29,20 @@ export const AccountForm = () => {
       router.push(ApplicationRoutes.accounts);
     },
   });
+
+  const handleIBANChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onChange: (value: string) => void
+  ) => {
+    let value = e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+
+    if (value.length > 34) {
+      value = value.substring(0, 34);
+    }
+
+    e.target.value = formatIBAN(value);
+    onChange(value);
+  };
 
   return (
     <div>
@@ -64,6 +78,33 @@ export const AccountForm = () => {
                     <Input placeholder="Description" {...field} />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="iban"
+              rules={{
+                validate: (value) => {
+                  return validateIBAN(value) || 'Please enter a valid IBAN';
+                },
+              }}
+              render={({ field: { onChange, ...restField } }) => (
+                <FormItem>
+                  <FormLabel>IBAN</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="e.g. BE9 3704 0044 0532 0130 00"
+                      {...restField}
+                      onChange={(e) => handleIBANChange(e, onChange)}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                  <p className="text-xs text-gray-500 mt-1">
+                    International Bank Account Number (e.g., BE89 3704 0044 0532
+                    0130 00)
+                  </p>
                 </FormItem>
               )}
             />

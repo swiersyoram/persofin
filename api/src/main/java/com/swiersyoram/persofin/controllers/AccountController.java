@@ -40,4 +40,12 @@ public class AccountController {
         return accountService.getAccountsByOwnerId(principal.getName());
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('PERMISSION_read:accounts')")
+    public Account getAccount(
+            @PathVariable UUID id
+    ) {
+        return accountService.getAccountById(id);
+    }
+
 }

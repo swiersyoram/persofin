@@ -14,4 +14,5 @@ public class Account extends BaseEntity {
     private String name;
     private String description;
     private String ownerId;
+    private String iban;
 }

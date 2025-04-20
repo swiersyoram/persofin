@@ -22,6 +22,10 @@ export const accountsQuery = baseQueryFunction<Array<Account>>(
   ApiRoutes.accounts
 );
 
+export const accountsByIdQuery = (id:string)=>baseQueryFunction<Account>(
+  ApiRoutes.accounts + `/${id}`
+);
+
 export const addAccountMutation = baseMutationFunction<Account>(
   ApiRoutes.accounts
 );

@@ -24,6 +24,7 @@ public class AccountService {
         Account existingAccount = getAccountById(id);
         existingAccount.setName(updatedAccount.getName());
         existingAccount.setDescription(updatedAccount.getDescription());
+        existingAccount.setIban(updatedAccount.getIban());
 
         return accountRepository.save(existingAccount);
     }
