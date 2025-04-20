@@ -10,7 +10,7 @@ import { ApplicationRoutes } from '@persofin/utils';
 
 const Accounts = () => {
   const { data: accounts } = useQuery({
-    queryKey: [QueryKeys.Accounts],
+    queryKey: [QueryKeys.ACCOUNTS],
     queryFn: accountsQuery,
   });
 

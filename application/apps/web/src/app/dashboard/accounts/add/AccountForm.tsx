@@ -4,7 +4,11 @@ import { DashboardTitle } from '@persofin/dashboard';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addAccountMutation, QueryKeys } from '@persofin/api';
 import { useRouter } from 'next/navigation';
-import { ApplicationRoutes, formatIBAN, validateIBAN } from '@persofin/utils';
+import {
+  ApplicationRoutes,
+  cleanIBANString,
+  validateIBAN,
+} from '@persofin/utils';
 import {
   Button,
   Form,
@@ -25,7 +29,7 @@ export const AccountForm = () => {
   const mutation = useMutation({
     mutationFn: addAccountMutation,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKeys.Accounts] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.ACCOUNTS] });
       router.push(ApplicationRoutes.accounts);
     },
   });
@@ -40,7 +44,7 @@ export const AccountForm = () => {
       value = value.substring(0, 34);
     }
 
-    e.target.value = formatIBAN(value);
+    e.target.value = cleanIBANString(value);
     onChange(value);
   };
 
@@ -95,7 +99,7 @@ export const AccountForm = () => {
                   <FormLabel>IBAN</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g. BE9 3704 0044 0532 0130 00"
+                      placeholder="e.g. BE68 5390 0754 7034"
                       {...restField}
                       onChange={(e) => handleIBANChange(e, onChange)}
                     />

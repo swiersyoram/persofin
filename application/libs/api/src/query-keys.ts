@@ -1,3 +1,4 @@
 export enum QueryKeys {
-  Accounts = 'accounts',
+  ACCOUNTS = 'ACCOUNTS',
+  ACCOUNTS_DETAIL = 'ACCOUNTS_DETAIL',
 }

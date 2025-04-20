@@ -2,7 +2,7 @@ package com.swiersyoram.persofin.controllers;
 
 import com.swiersyoram.persofin.entity.Accounts.Account;
 import com.swiersyoram.persofin.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +12,9 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/accounts")
+@RequiredArgsConstructor
 public class AccountController {
-
-    @Autowired
-    AccountService accountService;
+    private final AccountService accountService;
 
     @PostMapping()
     @PreAuthorize("hasAuthority('PERMISSION_create:accounts')")
@@ -25,11 +24,11 @@ public class AccountController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('PERMISSION_update:accounts')")
-    public void updateAccount(
+    public Account updateAccount(
             @PathVariable UUID id,
             @RequestBody Account updatedAccount
     ) {
-        accountService.updateAccount(id, updatedAccount);
+        return accountService.updateAccount(id, updatedAccount);
     }
 
     @GetMapping("")
@@ -46,6 +45,14 @@ public class AccountController {
             @PathVariable UUID id
     ) {
         return accountService.getAccountById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('PERMISSION_delete:accounts')")
+    public void deleteAccount(
+            @PathVariable UUID id
+    ) {
+        accountService.deleteAccount(id);
     }
 
 }

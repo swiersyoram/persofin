@@ -51,7 +51,18 @@ export const validateIBAN = (iban?: string): boolean => {
  * @param iban - The IBAN to format
  * @returns Formatted IBAN with spaces every 4 characters
  */
-export const formatIBAN = (iban: string): string => {
+export const cleanIBANString = (iban: string): string => {
   const cleanedIBAN = iban.replace(/\s/g, '').toUpperCase();
   return cleanedIBAN.replace(/(.{4})/g, '$1 ').trim();
+};
+
+/**
+ * Formats a string into an IBAN pattern
+ * @param input - The string to format
+ * @returns The formatted IBAN
+ */
+export const formatIBANString = (input: string): string => {
+  const cleanedInput = input.replace(/\s/g, '');
+  const regex = new RegExp(`(.{4})`, 'g');
+  return cleanedInput.replace(regex, `$1 `).trim();
 };

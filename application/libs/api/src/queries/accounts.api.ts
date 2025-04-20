@@ -18,14 +18,25 @@ const baseMutationFunction =
     });
   };
 
+const baseDeleteFunction = (endpoint: string) => {
+  return fetch(endpoint, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 export const accountsQuery = baseQueryFunction<Array<Account>>(
   ApiRoutes.accounts
 );
 
-export const accountsByIdQuery = (id:string)=>baseQueryFunction<Account>(
-  ApiRoutes.accounts + `/${id}`
-);
+export const accountsByIdQuery = (id: string) =>
+  baseQueryFunction<Account>(ApiRoutes.accounts + `/${id}`);
 
 export const addAccountMutation = baseMutationFunction<Account>(
   ApiRoutes.accounts
 );
+
+export const deleteAccountMutation = (id: string) =>
+  baseDeleteFunction(`${ApiRoutes.accounts}/${id}`);
