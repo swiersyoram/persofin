@@ -13,7 +13,6 @@ const Page = () => {
     queryFn: accountsByIdQuery(id),
   });
 
-  console.log(account);
   if (!account) return null;
   return (
     <div>
